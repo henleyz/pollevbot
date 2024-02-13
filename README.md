@@ -25,3 +25,5 @@ Pollevbot is a simple bot designed to automatically respond to PollEv questions 
     ```bash
     python main.py [optional presenter code]
     ```
+
+Note: I don't condone the use of this bot for any abuse or academic dishonesty. It was only created so I don't miss polls when I randomly zone out in class.
