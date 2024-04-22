@@ -4,15 +4,15 @@ Pollevbot is a simple bot designed to automatically respond to PollEv questions 
 
 ## Usage
 
-1. **Install selenium:**
+1. **Install selenium and web driver manager:**
 
     ```bash
     pip install selenium
     ```
 
-2. **Install the Chrome driver:**
-   - Download the Chrome driver from [here](https://sites.google.com/chromium.org/driver/).
-   - Set the path of the Chrome driver in the `chrome_driver_path` variable in `config.json`.
+    ```bash
+    pip install webdriver_manager
+    ```
 
 3. **Get the user data path so that you stay logged in to PollEv:**
    - In Google Chrome, open a new tab and type `chrome://version`.
@@ -25,5 +25,7 @@ Pollevbot is a simple bot designed to automatically respond to PollEv questions 
     ```bash
     python main.py [optional presenter code]
     ```
+
+    Press q to quit.
 
 Note: I don't condone the use of this bot for any abuse or academic dishonesty. It was only created so I don't miss polls when I randomly zone out in class.

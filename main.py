@@ -58,9 +58,14 @@ def main():
     quit_thread = Thread(target=listen_for_quit)
     quit_thread.start()
 
+
+    question = ""
+    number_of_questions = 0
     spinny_char = '|'
     while True:
         if QUIT_FLAG:
+            print("Quitting...")
+            print("Number of questions answered: " + str(number_of_questions))
             break
         spinny_char = next_spinny_char(spinny_char)
         try:
@@ -77,12 +82,22 @@ def main():
                 continue
 
             # Check if poll is a select all that apply poll, and select a random number of buttons
+            new_question = driver.find_element(By.XPATH, '//h1[@class="component-response-header__title"]')
+
+
+            is_new_question = question != new_question.text
+            if question != new_question.text:
+                number_of_questions += 1
+                question = new_question.text
+                print(f"New poll found: {question}")
             match = re.search(r'\d+', header_text)
             if match:
-                print("Responding to select all that apply poll with " + match.group() + " options")
+                if (is_new_question):
+                    print("Responding to select all that apply poll with " + match.group() + " options")
                 number_of_buttons_to_select = int(match.group())
             else:
-                print("Responding to a normal MC poll")
+                if (is_new_question):
+                    print("Responding to a normal MC poll")
             
             buttons = driver.find_elements(By.XPATH, '//button[@class="component-response-multiple-choice__option__vote"]')
             # Get random button
