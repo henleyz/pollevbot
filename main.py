@@ -8,10 +8,10 @@ from selenium import webdriver
 from selenium.webdriver.chrome.service import Service
 from selenium.webdriver.common.by import By
 from selenium.webdriver.common.keys import Keys
+from webdriver_manager.chrome import ChromeDriverManager
 
 # Global variables
 PRESENTER_CODE = "oski"
-CHROME_DRIVER_PATH = "C:\\Users\\henle\\Desktop\\chromedriver.exe"
 CHROME_PROFILE_PATH = "C:\\Users\\henle\\AppData\\Local\\Google\\Chrome\\User Data"
 QUIT_FLAG = False
 
@@ -19,7 +19,6 @@ QUIT_FLAG = False
 with open('config.json') as f:
     data = json.load(f)
     PRESENTER_CODE = data['presenter_code']
-    CHROME_DRIVER_PATH = data['chrome_driver_path']
     CHROME_PROFILE_PATH = data['chrome_profile_path']
 
 if len(sys.argv) > 1:
@@ -37,7 +36,7 @@ def listen_for_quit():
 def main():
     global QUIT_FLAG
     # Service setup
-    service = Service(CHROME_DRIVER_PATH)
+    service = Service(ChromeDriverManager().install())
 
     # Chrome options setup
     options = webdriver.ChromeOptions()
@@ -45,6 +44,7 @@ def main():
     options.add_argument("--no-sandbox")
     options.add_argument("user-data-dir=" + CHROME_PROFILE_PATH)
     options.add_argument('--profile-directory=Default')
+    options.add_argument("--headless")
 
     # WebDriver setup
     driver = webdriver.Chrome(service=service, options=options)
